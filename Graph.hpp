@@ -34,7 +34,17 @@ public:
     // Implementar!! 
     // Devuelve la cantidad de aristas
     int numEdges() const {
-        return 0;
+        int edgeCounter = 0;
+
+        for (int i = 0; i < adjMatrix.size(); i++) {
+            for (int j = 0; j < numVertices; j++) {
+                if (adjMatrix[i][j] == 1) {
+                    edgeCounter++;
+                }
+            }
+        }
+    
+        return edgeCounter;
     }
 
     // Completa esta función
@@ -43,6 +53,15 @@ public:
         if (u < 0 || u >= numVertices)
             throw out_of_range("Vertice fuera de rango");
         else {
+            int inCounter = 0;
+
+            for (int i = 0; i < numVertices; i++) {
+                if (adjMatrix[u][i] == 1) {
+                    inCounter++;
+                }
+            }
+
+            return inCounter;
         }
     }
 
@@ -52,6 +71,15 @@ public:
     // devuelve true si u es uno de ellos
     bool isInfluencer(int u) const  {
         
+        int influencer = 0;
+        for (int i = 1; i < adjMatrix.size(); i++) {
+            if (inDegree(u) > inDegree(influencer)) {
+                influencer = u;
+            }
+        }
+        
+        if (influencer == u) { return true; }
+        else { return false; }
     }
 };
 
